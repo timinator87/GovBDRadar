@@ -57,6 +57,51 @@ The tool uses Claude (Anthropic's LLM) to extract structured data and generates 
    python ingest.py --help
    ```
 
+## Usage Methods
+
+GovBDRadar offers two ways to use the tool:
+
+1. **Web Interface** (Recommended) - User-friendly browser-based interface
+2. **Command Line** - For automation and scripting
+
+### 🌐 Web Interface (Recommended)
+
+The web interface provides an intuitive, visual way to manage company intelligence extraction.
+
+**Launch the web interface:**
+
+```bash
+# On Linux/Mac
+./run_web.sh
+
+# On Windows
+run_web.bat
+```
+
+The interface will open in your browser at `http://localhost:8501`
+
+**Features:**
+- 📤 **Ingest**: Drag-and-drop document upload with form-based company details
+- 📋 **Review**: Interactive profile review with inline editing
+- ✅ **Approve**: One-click approval with notes
+- 📁 **Browse**: Search, filter, and compare all profiles
+- 📊 **Real-time Statistics**: See pending and approved counts
+- 🔍 **Advanced Search**: Filter by domain, relationship, confidence scores
+- ⬇️ **Export**: Download JSON, Markdown, or CSV summaries
+
+**Quick Workflow:**
+1. Click "Ingest" in the sidebar
+2. Upload your PDF/PPTX file
+3. Fill in company details
+4. Click "Process Document"
+5. Review results in the "Review" page
+6. Click "Approve Profile" when satisfied
+7. Browse all profiles in the "Browse" page
+
+### 💻 Command Line Interface
+
+For automation, scripting, or CI/CD integration:
+
 ## Quick Start
 
 ### 1. Ingest a Document
