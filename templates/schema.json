@@ -1,0 +1,245 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Company Capability Profile",
+  "type": "object",
+  "properties": {
+    "company_name": {
+      "type": "string",
+      "description": "Legal company name"
+    },
+    "last_updated": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp of last profile update"
+    },
+    "relationship": {
+      "type": "string",
+      "enum": ["portfolio", "investment_target", "partner", "competitor"],
+      "description": "Your relationship to this company"
+    },
+    "core_capabilities": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "capability_name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string",
+            "description": "2-3 sentence description of the capability"
+          },
+          "technical_category": {
+            "type": "string",
+            "enum": ["hardware", "software", "integration", "service"]
+          },
+          "domains": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "air_defense",
+                "counter_uas",
+                "maritime",
+                "cyber",
+                "space",
+                "logistics",
+                "communications",
+                "isr",
+                "electronic_warfare",
+                "ground_systems",
+                "other"
+              ]
+            }
+          },
+          "readiness_level": {
+            "type": "string",
+            "enum": ["concept", "prototype", "production_ready", "fielded"]
+          },
+          "evidence": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "contract_delivered",
+                "patent_granted",
+                "third_party_validated",
+                "demo_completed",
+                "partnership_announced",
+                "claimed_only"
+              ]
+            }
+          },
+          "confidence_score": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 100,
+            "description": "Confidence in capability claim based on evidence"
+          }
+        },
+        "required": ["capability_name", "description", "technical_category"]
+      }
+    },
+    "operational_domains": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "domain": {
+            "type": "string"
+          },
+          "use_cases": {
+            "type": "array",
+            "items": {"type": "string"}
+          },
+          "customer_segments": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": ["DoD", "allied_nations", "federal_civilian", "commercial"]
+            }
+          }
+        }
+      }
+    },
+    "technical_specifications": {
+      "type": "object",
+      "properties": {
+        "key_metrics": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "metric": {"type": "string"},
+              "value": {"type": "string"},
+              "unit": {"type": "string"}
+            }
+          }
+        },
+        "integration_requirements": {
+          "type": "string",
+          "enum": ["standalone", "requires_platform", "software_only", "turnkey_system"]
+        },
+        "deployment_timeline": {
+          "type": "string",
+          "description": "Expected timeline from contract award to deployment"
+        }
+      }
+    },
+    "competitive_positioning": {
+      "type": "object",
+      "properties": {
+        "primary_competitors": {
+          "type": "array",
+          "items": {"type": "string"}
+        },
+        "differentiation": {
+          "type": "string",
+          "description": "How they claim to be better/different"
+        },
+        "cost_advantage": {
+          "type": "string",
+          "description": "Claimed cost advantages"
+        },
+        "performance_advantage": {
+          "type": "string",
+          "description": "Claimed performance advantages"
+        }
+      }
+    },
+    "contract_execution": {
+      "type": "object",
+      "properties": {
+        "vehicles": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "SBIR",
+              "STTR",
+              "OTA",
+              "FAR_Part_12",
+              "FAR_Part_15",
+              "IDIQ",
+              "GSA_Schedule",
+              "BPA",
+              "Other"
+            ]
+          }
+        },
+        "past_performance": {
+          "type": "array",
+          "items": {"type": "string"},
+          "description": "List of relevant past contracts/awards"
+        },
+        "security_clearances": {
+          "type": "object",
+          "properties": {
+            "facility_clearance_level": {
+              "type": "string",
+              "enum": ["None", "Confidential", "Secret", "Top_Secret"]
+            },
+            "personnel_cleared_count": {"type": "integer"}
+          }
+        },
+        "cage_code": {
+          "type": "string",
+          "pattern": "^[0-9A-Z]{5}$"
+        },
+        "duns": {
+          "type": "string",
+          "pattern": "^[0-9]{9}$"
+        },
+        "uei": {
+          "type": "string",
+          "description": "Unique Entity Identifier (SAM)"
+        }
+      }
+    },
+    "development_trajectory": {
+      "type": "object",
+      "properties": {
+        "current_stage": {
+          "type": "string",
+          "description": "Current development stage with key activities"
+        },
+        "12_month_outlook": {
+          "type": "string",
+          "description": "What they could deliver with capital/support"
+        },
+        "key_milestones": {
+          "type": "array",
+          "items": {"type": "string"}
+        },
+        "technical_risks": {
+          "type": "array",
+          "items": {"type": "string"}
+        }
+      }
+    },
+    "source_documents": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "filename": {"type": "string"},
+          "date": {"type": "string", "format": "date-time"},
+          "type": {
+            "type": "string",
+            "enum": ["pitch_deck", "capability_statement", "white_paper", "website"]
+          }
+        }
+      }
+    },
+    "validation_warnings": {
+      "type": "array",
+      "items": {"type": "string"},
+      "description": "Automated validation warnings flagged during extraction"
+    },
+    "user_notes": {
+      "type": "string",
+      "description": "User-provided notes and corrections"
+    }
+  },
+  "required": ["company_name", "last_updated", "relationship"]
+}

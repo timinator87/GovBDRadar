@@ -1,0 +1,63 @@
+# Company Intelligence Ingestion Tool - Configuration
+
+# API Keys (can also be set via environment variables)
+api_keys:
+  anthropic: "${ANTHROPIC_API_KEY}"  # Set via environment variable or replace with actual key
+  openai: "${OPENAI_API_KEY}"  # Optional, for vision capabilities
+
+# LLM Settings
+llm:
+  provider: "anthropic"  # Options: anthropic, openai
+  model: "claude-sonnet-4-5-20250929"  # Default model for extraction
+  temperature: 0.1  # Low temperature for consistent extraction
+  max_tokens: 4096
+
+# Paths
+paths:
+  pending: "data/pending"
+  approved: "data/approved"
+  training: "data/training"
+  templates: "templates"
+
+# Document Processing
+document_processing:
+  ocr_enabled: true  # Enable OCR for text in images
+  extract_images: true  # Extract and analyze images from documents
+  min_text_length: 100  # Minimum extracted text length (words)
+  image_description_model: "claude-sonnet-4-5-20250929"  # Model for image analysis
+
+# Extraction Settings
+extraction:
+  confidence_threshold: 50  # Minimum confidence score to include capability
+  max_retries: 2  # Number of retries if extraction fails
+
+  # Evidence scoring weights
+  evidence_weights:
+    contract_delivered: 40
+    patent_granted: 30
+    third_party_validated: 20
+    demo_completed: 15
+    partnership_announced: 10
+    claimed_only: 0
+
+# Validation Rules
+validation:
+  flag_missing_evidence: true  # Flag high readiness claims without evidence
+  flag_vague_claims: true  # Flag claims with hedging language
+  flag_missing_critical_info: true  # Flag profiles missing contract vehicles or past performance
+
+# Output Settings
+output:
+  generate_json: true
+  generate_markdown: true
+  generate_comparison: true  # Side-by-side comparison view
+  markdown_include_warnings: true
+
+# Review Workflow
+review:
+  auto_open_editor: false  # Automatically open markdown in editor after extraction
+  require_approval: true  # Require explicit approval before moving to approved/
+
+# User Defaults (can be overridden via CLI)
+defaults:
+  relationship: "investment_target"  # Default relationship type
