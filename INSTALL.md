@@ -20,7 +20,57 @@ Before you begin, ensure you have:
 
 ## Installation Steps
 
-### Option 1: Build from Source (Recommended for Development)
+### Option 1: Use the Automated Scripts (EASIEST - Recommended)
+
+This is the fastest way to get started!
+
+#### Step 1: Clone or Download the Repository
+
+If you have the code in a local directory already, skip to Step 2.
+
+Otherwise, clone the repository:
+```powershell
+git clone https://github.com/timinator87/GovBDRadar.git
+cd GovBDRadar
+```
+
+Or download and extract the ZIP from GitHub.
+
+#### Step 2: Verify .NET Installation
+
+Open PowerShell or Command Prompt and run:
+```powershell
+dotnet --version
+```
+
+You should see `8.0.x` or higher. If not, install the .NET 8 SDK from the prerequisites section.
+
+#### Step 3: Run the Build Script
+
+**Simply double-click**: `build-and-run.bat`
+
+That's it! The script will:
+- ✓ Check .NET version
+- ✓ Restore all NuGet packages
+- ✓ Build the solution in Release mode
+- ✓ Run tests
+- ✓ Launch GovMatch
+
+**Alternative - Run from PowerShell:**
+```powershell
+powershell -ExecutionPolicy Bypass -File build-and-run.ps1
+```
+
+**Alternative - Run from Command Prompt:**
+```cmd
+powershell -ExecutionPolicy Bypass -File build-and-run.ps1
+```
+
+The WPF window should launch within 10-30 seconds (first build takes longer).
+
+---
+
+### Option 2: Build from Source Manually (For Advanced Users)
 
 #### Step 1: Clone or Download the Repository
 
@@ -80,15 +130,26 @@ dotnet run --project GovMatch.App --configuration Release
 
 The WPF window should launch within 5-10 seconds.
 
-### Option 2: Build as Self-Contained Executable (Recommended for Distribution)
+---
 
-This creates a standalone .exe that doesn't require .NET runtime installation.
+### Option 3: Build as Self-Contained Executable (Recommended for Distribution)
 
-#### Step 1-3: Same as Option 1
+This creates a standalone .exe (~80-100 MB) that doesn't require .NET runtime installation.
 
-Follow Steps 1-3 from Option 1 above.
+#### Method A: Use the Automated Script (EASIEST)
 
-#### Step 4: Publish as Self-Contained
+**Simply double-click**: `publish-standalone.bat`
+
+The script will build everything and open the output folder automatically.
+
+**Or run from PowerShell:**
+```powershell
+powershell -ExecutionPolicy Bypass -File publish-standalone.ps1
+```
+
+#### Method B: Manual Publish
+
+If you prefer to do it manually:
 
 ```powershell
 dotnet publish GovMatch.App/GovMatch.App.csproj `

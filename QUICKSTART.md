@@ -24,12 +24,14 @@ cd GovBDRadar
 **Option B: Download ZIP**
 1. Download ZIP from GitHub
 2. Extract to a folder
-3. Open PowerShell in that folder
 
 ## Step 3: Build and Run (1 minute)
 
+**Simply double-click**: `build-and-run.bat`
+
+**Or open PowerShell and run:**
 ```powershell
-.\build-and-run.ps1
+powershell -ExecutionPolicy Bypass -File build-and-run.ps1
 ```
 
 That's it! The application will:
@@ -38,6 +40,8 @@ That's it! The application will:
 3. ✓ Build solution
 4. ✓ Run tests
 5. ✓ Launch GovMatch
+
+**Note:** If you get "execution policy" errors, use the `.bat` files instead of `.ps1` files.
 
 ## Step 4: First-Time Setup (2 minutes)
 
@@ -105,8 +109,11 @@ When GovMatch launches:
 
 To create a portable executable:
 
+**Double-click**: `publish-standalone.bat`
+
+**Or in PowerShell:**
 ```powershell
-.\publish-standalone.ps1
+powershell -ExecutionPolicy Bypass -File publish-standalone.ps1
 ```
 
 Output: `publish\GovMatch.App.exe` (~80-100 MB)
@@ -114,6 +121,12 @@ Output: `publish\GovMatch.App.exe` (~80-100 MB)
 This .exe includes .NET runtime and can run on any Windows 10/11 machine without installing .NET.
 
 ## Troubleshooting
+
+**PowerShell scripts won't run / open in Notepad**
+- **Solution**: Use the `.bat` files instead:
+  - `build-and-run.bat` (just double-click)
+  - `publish-standalone.bat` (just double-click)
+- **Or** run: `Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser`
 
 **"dotnet command not found"**
 - Install .NET 8 SDK from link above

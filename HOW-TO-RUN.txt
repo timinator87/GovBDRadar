@@ -1,0 +1,123 @@
+========================================
+  GovMatch - How to Run on Windows
+========================================
+
+IMPORTANT: PowerShell scripts (.ps1) don't run by double-clicking in Windows!
+
+Use one of these methods instead:
+
+========================================
+METHOD 1: Double-Click the .BAT File (EASIEST)
+========================================
+
+Just double-click:
+
+  build-and-run.bat
+
+This will automatically build and launch GovMatch.
+
+To create a standalone .exe, double-click:
+
+  publish-standalone.bat
+
+
+========================================
+METHOD 2: Right-Click → Run with PowerShell
+========================================
+
+1. Right-click on "build-and-run.ps1"
+2. Select "Run with PowerShell"
+3. If you see a security warning, type "Y" and press Enter
+
+
+========================================
+METHOD 3: Use PowerShell Command Line
+========================================
+
+1. Open PowerShell (right-click Start → Windows PowerShell)
+2. Navigate to the folder:
+
+   cd C:\path\to\GovBDRadar
+
+3. Run the script:
+
+   .\build-and-run.ps1
+
+If you get an "execution policy" error, run this first:
+
+   Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+
+Then run the script again.
+
+
+========================================
+METHOD 4: Use Command Prompt
+========================================
+
+1. Open Command Prompt (cmd.exe)
+2. Navigate to the folder:
+
+   cd C:\path\to\GovBDRadar
+
+3. Run:
+
+   powershell -ExecutionPolicy Bypass -File build-and-run.ps1
+
+
+========================================
+METHOD 5: Manual Build (No Scripts)
+========================================
+
+If all else fails, use these commands in PowerShell or Command Prompt:
+
+dotnet restore
+dotnet build --configuration Release
+dotnet run --project GovMatch.App --configuration Release
+
+
+========================================
+RECOMMENDED METHOD
+========================================
+
+Use METHOD 1 - just double-click "build-and-run.bat"
+
+This is the easiest and works on all Windows systems without
+changing security settings.
+
+
+========================================
+Creating Standalone .exe
+========================================
+
+Double-click:  publish-standalone.bat
+
+Or in PowerShell:  .\publish-standalone.ps1
+
+Output will be in the "publish" folder.
+
+
+========================================
+Troubleshooting
+========================================
+
+Problem: "dotnet command not found"
+Solution: Install .NET 8 SDK from:
+          https://dotnet.microsoft.com/download/dotnet/8.0
+
+Problem: PowerShell script won't run
+Solution: Use the .bat files instead, or run:
+          Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+
+Problem: Build fails
+Solution: Run these commands:
+          dotnet nuget locals all --clear
+          dotnet restore --force
+          dotnet build --configuration Release
+
+
+========================================
+Need More Help?
+========================================
+
+See INSTALL.md for detailed installation instructions.
+See QUICKSTART.md for 5-minute setup guide.

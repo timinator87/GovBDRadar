@@ -47,19 +47,22 @@ GovMatch automatically ingests opportunities from SAM.gov, scores them against y
 
 1. **Install .NET 8 SDK**: Download from https://dotnet.microsoft.com/download/dotnet/8.0
 2. **Clone or download** this repository
-3. **Run the build script**:
-   ```powershell
-   .\build-and-run.ps1
-   ```
+3. **Double-click**: `build-and-run.bat`
 
-The script will automatically restore packages, build, test, and launch the application.
+That's it! The script will automatically restore packages, build, test, and launch the application.
+
+**Alternative (PowerShell):**
+```powershell
+powershell -ExecutionPolicy Bypass -File build-and-run.ps1
+```
 
 ### Create Standalone Executable
 
-To create a self-contained .exe that doesn't require .NET runtime:
+**Double-click**: `publish-standalone.bat`
 
+**Or in PowerShell:**
 ```powershell
-.\publish-standalone.ps1
+powershell -ExecutionPolicy Bypass -File publish-standalone.ps1
 ```
 
 This creates a standalone executable in the `publish` folder (~80-100 MB).
