@@ -43,9 +43,34 @@ GovMatch automatically ingests opportunities from SAM.gov, scores them against y
 
 ## Quick Start
 
-See [USAGE_GUIDE.md](USAGE_GUIDE.md) for detailed instructions.
+### Install on Windows (Easy Method)
 
-See [BUILD.md](BUILD.md) for build and deployment instructions.
+1. **Install .NET 8 SDK**: Download from https://dotnet.microsoft.com/download/dotnet/8.0
+2. **Clone or download** this repository
+3. **Run the build script**:
+   ```powershell
+   .\build-and-run.ps1
+   ```
+
+The script will automatically restore packages, build, test, and launch the application.
+
+### Create Standalone Executable
+
+To create a self-contained .exe that doesn't require .NET runtime:
+
+```powershell
+.\publish-standalone.ps1
+```
+
+This creates a standalone executable in the `publish` folder (~80-100 MB).
+
+### Manual Installation
+
+See [INSTALL.md](INSTALL.md) for detailed installation instructions.
+
+See [USAGE_GUIDE.md](USAGE_GUIDE.md) for detailed usage scenarios.
+
+See [BUILD.md](BUILD.md) for advanced build and deployment options.
 
 ## Solution Structure
 
@@ -61,6 +86,7 @@ GovMatch/
 ## Documentation
 
 - **[README.md](README.md)** - This file (overview)
+- **[INSTALL.md](INSTALL.md)** - Windows installation guide
 - **[USAGE_GUIDE.md](USAGE_GUIDE.md)** - Detailed user guide
 - **[BUILD.md](BUILD.md)** - Build and deployment instructions
 
