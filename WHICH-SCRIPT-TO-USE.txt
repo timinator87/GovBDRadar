@@ -1,0 +1,80 @@
+====================================================================
+  GovMatch - Which Script Should I Use?
+====================================================================
+
+Use these SIMPLE scripts (recommended):
+========================================
+
+✅ BUILD.bat
+   - Pure batch file (no PowerShell)
+   - Builds and runs GovMatch
+   - Just double-click
+   - Most reliable option
+
+✅ PUBLISH.bat
+   - Pure batch file (no PowerShell)
+   - Creates standalone .exe in "publish" folder
+   - Just double-click
+   - Opens publish folder when done
+
+✅ simple-build.bat
+   - Also pure batch (alternative to BUILD.bat)
+   - Same functionality as BUILD.bat
+
+
+Avoid these (have PowerShell issues):
+======================================
+
+❌ build-and-run.bat
+   - Calls buggy PowerShell script
+   - Has variable scoping issues
+   - Use BUILD.bat instead
+
+❌ publish-standalone.bat
+   - Calls buggy PowerShell script
+   - Has path/scoping issues
+   - Use PUBLISH.bat instead
+
+❌ build-and-run.ps1
+   - PowerShell script with syntax errors
+   - Don't run directly
+
+❌ publish-standalone.ps1
+   - PowerShell script with path issues
+   - Don't run directly
+
+
+====================================================================
+QUICK START
+====================================================================
+
+1. Install .NET 8 SDK:
+   https://dotnet.microsoft.com/download/dotnet/8.0
+
+2. Double-click: BUILD.bat
+   - This builds and runs the application
+
+3. To create portable .exe:
+   - Double-click: PUBLISH.bat
+   - .exe will be in: publish\GovMatch.App.exe
+
+
+====================================================================
+TROUBLESHOOTING
+====================================================================
+
+If BUILD.bat fails with compilation errors:
+  1. Run: git pull
+  2. Try: BUILD.bat again
+
+If PUBLISH.bat fails:
+  1. Run: BUILD.bat first (to verify it compiles)
+  2. Then try: PUBLISH.bat again
+
+If you get "dotnet command not found":
+  - Install .NET 8 SDK (link above)
+  - Restart command prompt
+  - Try again
+
+
+====================================================================
