@@ -117,10 +117,17 @@ Write-Host ""
 # Open folder if requested
 if ($OpenFolder) {
     Write-Host "Opening publish folder..." -ForegroundColor Gray
+    Write-Host "  Path: $publishPath" -ForegroundColor Gray
     if (Test-Path $publishPath) {
-        explorer.exe $publishPath
+        # Convert to absolute path to ensure explorer opens the right folder
+        $absolutePath = (Resolve-Path $publishPath).Path
+        Start-Process explorer.exe -ArgumentList $absolutePath
+        Write-Host "  Folder opened successfully" -ForegroundColor Green
+    } else {
+        Write-Host "  Warning: Publish folder not found at $publishPath" -ForegroundColor Yellow
     }
 }
 
+Write-Host ""
 Write-Host "Press any key to exit..."
 $null = $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
