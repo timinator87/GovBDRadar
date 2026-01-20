@@ -62,7 +62,15 @@ Write-Host ""
 Write-Host "[4/4] Publishing self-contained executable..." -ForegroundColor Yellow
 Write-Host "   This may take 1-2 minutes..." -ForegroundColor Gray
 
-$publishPath = Join-Path $PSScriptRoot $OutputPath
+# Build absolute publish path
+if ([string]::IsNullOrEmpty($PSScriptRoot)) {
+    $scriptDir = Get-Location
+} else {
+    $scriptDir = $PSScriptRoot
+}
+
+$publishPath = Join-Path $scriptDir.Path $OutputPath
+Write-Host "   Publishing to: $publishPath" -ForegroundColor Gray
 
 & dotnet publish GovMatch.App/GovMatch.App.csproj `
     --configuration Release `
@@ -91,14 +99,25 @@ Write-Host "  SUCCESS!" -ForegroundColor Green
 Write-Host "==========================================" -ForegroundColor Green
 Write-Host ""
 
-$exePath = Join-Path $publishPath "GovMatch.App.exe"
-if (Test-Path $exePath) {
-    $exeSize = (Get-Item $exePath).Length / 1MB
-    Write-Host "Executable created:" -ForegroundColor Cyan
-    Write-Host "  Location: $exePath" -ForegroundColor White
-    Write-Host "  Size: $($exeSize.ToString('F1')) MB" -ForegroundColor White
+# Verify publish path exists
+if ([string]::IsNullOrEmpty($publishPath)) {
+    Write-Host "Error: Publish path is empty!" -ForegroundColor Red
+    $publishPath = Join-Path (Get-Location) $OutputPath
+    Write-Host "Falling back to: $publishPath" -ForegroundColor Yellow
+}
+
+if (Test-Path $publishPath) {
+    $exePath = Join-Path $publishPath "GovMatch.App.exe"
+    if (Test-Path $exePath) {
+        $exeSize = (Get-Item $exePath).Length / 1MB
+        Write-Host "Executable created:" -ForegroundColor Cyan
+        Write-Host "  Location: $exePath" -ForegroundColor White
+        Write-Host "  Size: $($exeSize.ToString('F1')) MB" -ForegroundColor White
+    } else {
+        Write-Host "Warning: Could not find GovMatch.App.exe in $publishPath" -ForegroundColor Yellow
+    }
 } else {
-    Write-Host "Warning: Could not find GovMatch.App.exe in output folder" -ForegroundColor Yellow
+    Write-Host "Warning: Publish folder not found at $publishPath" -ForegroundColor Yellow
 }
 
 Write-Host ""
@@ -117,12 +136,23 @@ Write-Host ""
 # Open folder if requested
 if ($OpenFolder) {
     Write-Host "Opening publish folder..." -ForegroundColor Gray
+
+    # Make sure we have a valid path
+    if ([string]::IsNullOrEmpty($publishPath)) {
+        $publishPath = Join-Path (Get-Location) $OutputPath
+    }
+
     Write-Host "  Path: $publishPath" -ForegroundColor Gray
+
     if (Test-Path $publishPath) {
-        # Convert to absolute path to ensure explorer opens the right folder
-        $absolutePath = (Resolve-Path $publishPath).Path
-        Start-Process explorer.exe -ArgumentList $absolutePath
-        Write-Host "  Folder opened successfully" -ForegroundColor Green
+        try {
+            # Convert to absolute path to ensure explorer opens the right folder
+            $absolutePath = (Resolve-Path $publishPath).Path
+            Start-Process explorer.exe -ArgumentList $absolutePath
+            Write-Host "  Folder opened successfully" -ForegroundColor Green
+        } catch {
+            Write-Host "  Warning: Could not open folder: $_" -ForegroundColor Yellow
+        }
     } else {
         Write-Host "  Warning: Publish folder not found at $publishPath" -ForegroundColor Yellow
     }
