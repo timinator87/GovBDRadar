@@ -1,0 +1,41 @@
+<UserControl x:Class="GovMatch.App.Views.SyncLogsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             Background="{StaticResource SurfaceBrush}">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Border Grid.Row="0" Background="White" Padding="15" BorderBrush="#E1DFDD" BorderThickness="0,0,0,1">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Orientation="Horizontal" Grid.Column="0">
+                    <TextBlock Text="API Requests Remaining (24h):" VerticalAlignment="Center" FontWeight="Bold" Margin="0,0,10,0"/>
+                    <TextBlock Text="{Binding RemainingRequests}" VerticalAlignment="Center" FontSize="18" Foreground="{StaticResource PrimaryBrush}"/>
+                    <Button Content="Refresh" Command="{Binding RefreshCommand}" Margin="20,0,0,0"/>
+                </StackPanel>
+
+                <Button Grid.Column="1" Content="Run Sync Now" Command="{Binding RunSyncCommand}" IsEnabled="{Binding IsSyncing, Converter={StaticResource InverseBoolConverter}}"/>
+            </Grid>
+        </Border>
+
+        <Border Grid.Row="1" Background="White" Margin="10" Padding="10">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <TextBlock Grid.Row="0" Text="Sync Logs" FontSize="18" FontWeight="Bold" Margin="0,0,0,10"/>
+
+                <ListBox Grid.Row="1" ItemsSource="{Binding Logs}" FontFamily="Consolas" FontSize="12"/>
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>

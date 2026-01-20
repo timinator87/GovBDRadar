@@ -1,0 +1,42 @@
+<UserControl x:Class="GovMatch.App.Views.CompanyProfileView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             Background="{StaticResource SurfaceBrush}">
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel Padding="20">
+            <TextBlock Text="Company Profile" FontSize="24" FontWeight="Bold" Margin="0,0,0,20"/>
+
+            <TextBlock Text="Company Name:" FontWeight="Bold" Margin="0,10,0,5"/>
+            <TextBox Text="{Binding DisplayName, UpdateSourceTrigger=PropertyChanged}"/>
+
+            <TextBlock Text="Capabilities (describe what your company does):" FontWeight="Bold" Margin="0,10,0,5"/>
+            <TextBox Text="{Binding CapabilityText, UpdateSourceTrigger=PropertyChanged}"
+                     AcceptsReturn="True" TextWrapping="Wrap" Height="100"/>
+
+            <TextBlock Text="Keywords (comma-separated):" FontWeight="Bold" Margin="0,10,0,5"/>
+            <TextBox Text="{Binding KeywordsCsv, UpdateSourceTrigger=PropertyChanged}"/>
+
+            <TextBlock Text="NAICS Codes (comma-separated):" FontWeight="Bold" Margin="0,10,0,5"/>
+            <TextBox Text="{Binding NaicsCsv, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBlock Text="Example: 541511,541512,541519" FontStyle="Italic" FontSize="10" Foreground="Gray"/>
+
+            <TextBlock Text="PSC Codes (comma-separated):" FontWeight="Bold" Margin="0,10,0,5"/>
+            <TextBox Text="{Binding PscCsv, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBlock Text="Example: R408,R425,D302" FontStyle="Italic" FontSize="10" Foreground="Gray"/>
+
+            <TextBlock Text="Target Agency Codes (comma-separated):" FontWeight="Bold" Margin="0,10,0,5"/>
+            <TextBox Text="{Binding TargetAgencyCodesCsv, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBlock Text="Example: 7000,1700,9700" FontStyle="Italic" FontSize="10" Foreground="Gray"/>
+
+            <TextBlock Text="Set-Aside Preferences (comma-separated codes):" FontWeight="Bold" Margin="0,10,0,5"/>
+            <TextBox Text="{Binding SetAsidePreferencesCsv, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBlock Text="Example: SBA,8A,HZC" FontStyle="Italic" FontSize="10" Foreground="Gray"/>
+
+            <TextBlock Text="Past Performance Summary:" FontWeight="Bold" Margin="0,10,0,5"/>
+            <TextBox Text="{Binding PastPerformanceText, UpdateSourceTrigger=PropertyChanged}"
+                     AcceptsReturn="True" TextWrapping="Wrap" Height="100"/>
+
+            <Button Content="Save Profile" Command="{Binding SaveCommand}" HorizontalAlignment="Left" Margin="0,20,0,0"/>
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

@@ -1,0 +1,49 @@
+<Window x:Class="GovMatch.App.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:views="clr-namespace:GovMatch.App.Views"
+        mc:Ignorable="d"
+        Title="GovMatch - Government Opportunity Discovery"
+        Height="700" Width="1200"
+        Background="{StaticResource BackgroundBrush}">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Border Grid.Column="0" Background="{StaticResource SecondaryBrush}" Padding="10">
+            <StackPanel>
+                <TextBlock Text="GovMatch" FontSize="24" FontWeight="Bold" Foreground="White" Margin="0,10,0,30"/>
+
+                <Button Content="Inbox" Command="{Binding ShowInboxCommand}" Margin="0,5" HorizontalAlignment="Stretch"/>
+                <Button Content="Company Profile" Command="{Binding ShowProfileCommand}" Margin="0,5" HorizontalAlignment="Stretch"/>
+                <Button Content="Retrieval Rules" Command="{Binding ShowRulesCommand}" Margin="0,5" HorizontalAlignment="Stretch"/>
+                <Button Content="Sync / Logs" Command="{Binding ShowSyncLogsCommand}" Margin="0,5" HorizontalAlignment="Stretch"/>
+                <Button Content="Settings" Command="{Binding ShowSettingsCommand}" Margin="0,5" HorizontalAlignment="Stretch"/>
+            </StackPanel>
+        </Border>
+
+        <ContentControl Grid.Column="1" Content="{Binding CurrentView}" Margin="10">
+            <ContentControl.Resources>
+                <DataTemplate DataType="{x:Type views:InboxViewModel}">
+                    <views:InboxView/>
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type views:CompanyProfileViewModel}">
+                    <views:CompanyProfileView/>
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type views:RetrievalRulesViewModel}">
+                    <views:RetrievalRulesView/>
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type views:SettingsViewModel}">
+                    <views:SettingsView/>
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type views:SyncLogsViewModel}">
+                    <views:SyncLogsView/>
+                </DataTemplate>
+            </ContentControl.Resources>
+        </ContentControl>
+    </Grid>
+</Window>

@@ -1,0 +1,55 @@
+<UserControl x:Class="GovMatch.App.Views.InboxView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             Background="{StaticResource SurfaceBrush}">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Border Grid.Row="0" Background="White" Padding="10" BorderBrush="#E1DFDD" BorderThickness="0,0,0,1">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Orientation="Horizontal" Grid.Column="0">
+                    <TextBlock Text="Search:" VerticalAlignment="Center" Margin="0,0,5,0"/>
+                    <TextBox Width="250" Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"/>
+                    <Button Content="Search" Command="{Binding SearchCommand}"/>
+
+                    <TextBlock Text="Min Score:" VerticalAlignment="Center" Margin="20,0,5,0"/>
+                    <Slider Width="100" Minimum="0" Maximum="100" Value="{Binding MinScore}" VerticalAlignment="Center"/>
+                    <TextBlock Text="{Binding MinScore}" VerticalAlignment="Center" Margin="5,0,0,0"/>
+
+                    <CheckBox Content="Active Only" IsChecked="{Binding ActiveOnly}" VerticalAlignment="Center" Margin="20,0,0,0"/>
+                </StackPanel>
+
+                <Button Grid.Column="1" Content="Refresh" Command="{Binding RefreshCommand}"/>
+                <Button Grid.Column="2" Content="Export CSV" Command="{Binding ExportCommand}"/>
+            </Grid>
+        </Border>
+
+        <DataGrid Grid.Row="1" ItemsSource="{Binding Opportunities}" SelectedItem="{Binding SelectedOpportunity}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Score" Binding="{Binding Score}" Width="60"/>
+                <DataGridTextColumn Header="Title" Binding="{Binding Opportunity.Title}" Width="*"/>
+                <DataGridTextColumn Header="Agency" Binding="{Binding Opportunity.AgencyPathName}" Width="200"/>
+                <DataGridTextColumn Header="Posted" Binding="{Binding Opportunity.PostedDate, StringFormat='{}{0:yyyy-MM-dd}'}" Width="100"/>
+                <DataGridTextColumn Header="Deadline" Binding="{Binding Opportunity.ResponseDeadline, StringFormat='{}{0:yyyy-MM-dd}'}" Width="100"/>
+                <DataGridTextColumn Header="NAICS" Binding="{Binding Opportunity.NaicsCode}" Width="80"/>
+                <DataGridTextColumn Header="Type" Binding="{Binding Opportunity.Type}" Width="60"/>
+                <DataGridTextColumn Header="Status" Binding="{Binding Status}" Width="80"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
+            <TextBlock Text="{Binding Opportunities.Count, StringFormat='Total: {0} opportunities'}" FontWeight="Bold"/>
+            <ProgressBar IsIndeterminate="True" Width="100" Height="20" Margin="20,0,0,0" Visibility="{Binding IsLoading, Converter={StaticResource BoolToVisConverter}}"/>
+        </StackPanel>
+    </Grid>
+</UserControl>

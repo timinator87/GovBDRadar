@@ -1,0 +1,106 @@
+<UserControl x:Class="GovMatch.App.Views.DigestView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             Background="{StaticResource SurfaceBrush}">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="250"/>
+        </Grid.ColumnDefinitions>
+
+        <ScrollViewer Grid.Column="0" VerticalScrollBarVisibility="Auto">
+            <StackPanel Padding="20">
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
+                    <TextBlock Text="Daily Digest" FontSize="24" FontWeight="Bold"/>
+                    <Button Content="Generate Now" Command="{Binding GenerateDigestCommand}" Margin="20,0,0,0"/>
+                </StackPanel>
+
+                <TextBlock Text="{Binding CurrentDigest.GeneratedAt, StringFormat='Generated: {0:yyyy-MM-dd HH:mm}'}"
+                           FontStyle="Italic" Margin="0,0,0,10"/>
+                <TextBlock Text="{Binding CurrentDigest.CutoffTime, StringFormat='Since: {0:yyyy-MM-dd HH:mm}'}"
+                           FontStyle="Italic" Margin="0,0,0,20"/>
+
+                <TextBlock Text="New Opportunities" FontSize="18" FontWeight="Bold" Margin="0,0,0,10"/>
+                <TextBlock Text="{Binding CurrentDigest.NewOpportunities.Count, StringFormat='{0} items'}"
+                           Foreground="Gray" Margin="0,0,0,5"/>
+                <ItemsControl ItemsSource="{Binding CurrentDigest.NewOpportunities}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Border BorderBrush="#E1DFDD" BorderThickness="1" Padding="10" Margin="0,5">
+                                <StackPanel>
+                                    <TextBlock Text="{Binding Title}" FontWeight="Bold" TextWrapping="Wrap"/>
+                                    <TextBlock Text="{Binding Agency}" Foreground="Gray" FontSize="11"/>
+                                    <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
+                                        <TextBlock Text="{Binding Score, StringFormat='Score: {0}'}" Foreground="{StaticResource PrimaryBrush}" FontWeight="Bold" Margin="0,0,10,0"/>
+                                        <TextBlock Text="{Binding PostedDate, StringFormat='Posted: {0:MM/dd/yyyy}'}" FontSize="11"/>
+                                        <TextBlock Text="{Binding ResponseDeadline, StringFormat=' | Deadline: {0:MM/dd/yyyy}'}" FontSize="11"/>
+                                    </StackPanel>
+                                    <TextBlock Text="{Binding WhyMatchedSummary}" FontSize="11" Foreground="DarkGreen" TextWrapping="Wrap" Margin="0,5,0,0"/>
+                                </StackPanel>
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+
+                <TextBlock Text="Updated Opportunities" FontSize="18" FontWeight="Bold" Margin="0,20,0,10"/>
+                <TextBlock Text="{Binding CurrentDigest.UpdatedOpportunities.Count, StringFormat='{0} items'}"
+                           Foreground="Gray" Margin="0,0,0,5"/>
+                <ItemsControl ItemsSource="{Binding CurrentDigest.UpdatedOpportunities}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Border BorderBrush="#E1DFDD" BorderThickness="1" Padding="10" Margin="0,5" Background="#FFF9E6">
+                                <StackPanel>
+                                    <TextBlock Text="{Binding Title}" FontWeight="Bold" TextWrapping="Wrap"/>
+                                    <TextBlock Text="{Binding Agency}" Foreground="Gray" FontSize="11"/>
+                                    <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
+                                        <TextBlock Text="{Binding Score, StringFormat='Score: {0}'}" Foreground="{StaticResource PrimaryBrush}" FontWeight="Bold" Margin="0,0,10,0"/>
+                                        <TextBlock Text="(UPDATED)" Foreground="Orange" FontWeight="Bold"/>
+                                    </StackPanel>
+                                </StackPanel>
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+
+                <TextBlock Text="Newly Relevant (Score Increased)" FontSize="18" FontWeight="Bold" Margin="0,20,0,10"/>
+                <TextBlock Text="{Binding CurrentDigest.NewlyRelevantOpportunities.Count, StringFormat='{0} items'}"
+                           Foreground="Gray" Margin="0,0,0,5"/>
+                <ItemsControl ItemsSource="{Binding CurrentDigest.NewlyRelevantOpportunities}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Border BorderBrush="#E1DFDD" BorderThickness="1" Padding="10" Margin="0,5" Background="#E6F7E6">
+                                <StackPanel>
+                                    <TextBlock Text="{Binding Title}" FontWeight="Bold" TextWrapping="Wrap"/>
+                                    <TextBlock Text="{Binding Agency}" Foreground="Gray" FontSize="11"/>
+                                    <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
+                                        <TextBlock Text="{Binding Score, StringFormat='Score: {0}'}" Foreground="{StaticResource PrimaryBrush}" FontWeight="Bold" Margin="0,0,10,0"/>
+                                        <TextBlock Text="{Binding ScoreDelta, StringFormat='(+{0})'}" Foreground="Green" FontWeight="Bold"/>
+                                    </StackPanel>
+                                    <TextBlock Text="{Binding WhyMatchedSummary}" FontSize="11" Foreground="DarkGreen" TextWrapping="Wrap" Margin="0,5,0,0"/>
+                                </StackPanel>
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </StackPanel>
+        </ScrollViewer>
+
+        <Border Grid.Column="1" Background="White" Padding="10" BorderBrush="#E1DFDD" BorderThickness="1,0,0,0">
+            <StackPanel>
+                <TextBlock Text="History" FontSize="16" FontWeight="Bold" Margin="0,0,0,10"/>
+                <Button Content="Refresh" Command="{Binding RefreshHistoryCommand}" HorizontalAlignment="Stretch" Margin="0,0,0,10"/>
+
+                <ListBox ItemsSource="{Binding DigestHistory}" SelectedItem="{Binding SelectedHistoryItem}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel>
+                                <TextBlock Text="{Binding GeneratedAtUtc, StringFormat='{0:MM/dd/yyyy HH:mm}'}" FontWeight="Bold"/>
+                                <TextBlock Text="{Binding SentVia, StringFormat='Via: {0}'}" FontSize="10" Foreground="Gray"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </StackPanel>
+        </Border>
+    </Grid>
+</UserControl>

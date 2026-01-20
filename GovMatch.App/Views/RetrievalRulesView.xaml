@@ -1,0 +1,69 @@
+<UserControl x:Class="GovMatch.App.Views.RetrievalRulesView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             Background="{StaticResource SurfaceBrush}">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="300"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Border Grid.Column="0" Background="White" Padding="10" BorderBrush="#E1DFDD" BorderThickness="0,0,1,0">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <TextBlock Grid.Row="0" Text="Retrieval Rules" FontSize="18" FontWeight="Bold" Margin="0,0,0,10"/>
+
+                <ListBox Grid.Row="1" ItemsSource="{Binding Rules}" SelectedItem="{Binding SelectedRule}" DisplayMemberPath="Name"/>
+
+                <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,10,0,0">
+                    <Button Content="Add" Command="{Binding AddRuleCommand}" Width="70"/>
+                    <Button Content="Delete" Command="{Binding DeleteRuleCommand}" Width="70"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <ScrollViewer Grid.Column="1" VerticalScrollBarVisibility="Auto">
+            <StackPanel Padding="20" DataContext="{Binding SelectedRule}">
+                <TextBlock Text="Rule Details" FontSize="20" FontWeight="Bold" Margin="0,0,0,20"/>
+
+                <TextBlock Text="Rule Name:" FontWeight="Bold" Margin="0,5,0,2"/>
+                <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"/>
+
+                <CheckBox Content="Enabled" IsChecked="{Binding Enabled}" Margin="0,10,0,0"/>
+
+                <TextBlock Text="Days Back:" FontWeight="Bold" Margin="0,10,0,2"/>
+                <TextBox Text="{Binding DaysBack, UpdateSourceTrigger=PropertyChanged}"/>
+
+                <TextBlock Text="Notice Type (ptype):" FontWeight="Bold" Margin="0,10,0,2"/>
+                <TextBox Text="{Binding PType, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBlock Text="Example: u,p,a (u=Justification, p=Presolicitation, a=Award)" FontStyle="Italic" FontSize="10" Foreground="Gray"/>
+
+                <TextBlock Text="Title Keywords:" FontWeight="Bold" Margin="0,10,0,2"/>
+                <TextBox Text="{Binding TitleKeywords, UpdateSourceTrigger=PropertyChanged}"/>
+
+                <TextBlock Text="NAICS Codes:" FontWeight="Bold" Margin="0,10,0,2"/>
+                <TextBox Text="{Binding NaicsCodes, UpdateSourceTrigger=PropertyChanged}"/>
+
+                <TextBlock Text="Classification/PSC Codes:" FontWeight="Bold" Margin="0,10,0,2"/>
+                <TextBox Text="{Binding ClassificationCodes, UpdateSourceTrigger=PropertyChanged}"/>
+
+                <TextBlock Text="Agency Codes:" FontWeight="Bold" Margin="0,10,0,2"/>
+                <TextBox Text="{Binding AgencyCodes, UpdateSourceTrigger=PropertyChanged}"/>
+
+                <TextBlock Text="Max Pages per Run:" FontWeight="Bold" Margin="0,10,0,2"/>
+                <TextBox Text="{Binding MaxPages, UpdateSourceTrigger=PropertyChanged}"/>
+
+                <TextBlock Text="Request Budget per Run:" FontWeight="Bold" Margin="0,10,0,2"/>
+                <TextBox Text="{Binding RequestBudget, UpdateSourceTrigger=PropertyChanged}"/>
+
+                <Button Content="Save Rule" Command="{Binding DataContext.SaveRuleCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                        HorizontalAlignment="Left" Margin="0,20,0,0"/>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</UserControl>
