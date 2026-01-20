@@ -2,7 +2,7 @@ using System.Text.Json;
 using GovMatch.Core.Models;
 using GovMatch.Data.Repositories;
 
-namespace GovMatch.Core.Services;
+namespace GovMatch.Data.Services;
 
 public class DigestService
 {

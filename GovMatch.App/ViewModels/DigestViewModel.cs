@@ -3,7 +3,7 @@ using System.Text.Json;
 using System.Windows;
 using GovMatch.App.Commands;
 using GovMatch.Core.Models;
-using GovMatch.Core.Services;
+using GovMatch.Data.Services;
 using GovMatch.Data.Repositories;
 
 namespace GovMatch.App.ViewModels;

@@ -1,6 +1,6 @@
 using GovMatch.Core.Interfaces;
 using GovMatch.Core.Models;
-using GovMatch.Core.Services;
+using GovMatch.Data.Services;
 using GovMatch.Data.Repositories;
 using Quartz;
 
